@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<title>pouch-model Todos Local Example</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div ng-app="pouch-model-todos-example" ng-cloak>
+    <div ng-controller="TodosController">
+      <h1>Todos (Local)</h1>
+
+      <hr>
+
+      <h3>Scope</h3>
+      <label>currentScope</label>
+      <select ng-model="currentScope">
+        <option value="user@example.com">user@example.com</option>
+        <option value="jane@xyz.com">jane@xyz.com</option>
+        <option value="foo@bar.com">foo@bar.com</option>
+      </select>
+
+      <hr>
+
+      <h3>currentUser</h3>
+      <form ng-submit="saveUser()">
+        <label>id</label>
+        <span>{{currentUser.id}}</span><br>
+        <label>email</label>
+        <input type="text" ng-model="currentUser.email"><br>
+        <label>first_name</label>
+        <input type="text" ng-model="currentUser.first_name"><br>
+        <label>last_name</label>
+        <input type="text" ng-model="currentUser.last_name"><br>
+        <button type="submit">Save</button>
+      </form>
+
+      <hr>
+      
+      <h3>Todos</h3>
+      <ul class="unstyled">
+        <li ng-repeat="todo in todos">
+          <input type="checkbox" ng-model="todo.completed" ng-change="saveTodo(todo)">
+          <a ng-class="{'completed': todo.completed}" ng-click="editTodo(todo.id)">
+            {{todo.title}}
+          </a>
+          <a class="remove" ng-click="removeTodo(todo)">&times;</a>
+        </li>
+      </ul>
+      <form ng-submit="saveTodo(currentTodo)">
+        <input type="text" ng-model="currentTodo.title" autofocus>
+        <button type="submit">Save</button>
+        <button type="button" ng-click="newTodo()">Cancel</button>
+      </form>
+
+      <hr>
+
+      <h3>Completed</h3>
+      <ul class="unstyled">
+        <li ng-repeat="todo in completedTodos">
+          <input type="checkbox" ng-model="todo.completed" ng-change="saveTodo(todo)">
+          <a ng-class="{'completed': todo.completed}" ng-click="editTodo(todo.id)">
+            {{todo.title}}
+          </a>
+          <a class="remove" ng-click="removeTodo(todo)">&times;</a>
+        </li>
+      </ul>
+
+      <hr>
+
+      <h3>currentTodo</h3>
+      <pre>{{currentTodo | debug}}</pre>
+    </div>
+  </div>
+
+  <script src="../bower_components/pouchdb/dist/pouchdb.js"></script>
+  <script src="../bower_components/pouchdb-collate/dist/pouchdb-collate.js"></script>
+  <script src="../bower_components/tv4/tv4.js"></script>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="../dist/pouch-model.js"></script>
+  <script src="local.js"></script>
+</body>
+</html>

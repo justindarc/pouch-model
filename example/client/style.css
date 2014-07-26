@@ -1,0 +1,56 @@
+[ng-cloak] {
+  display:none !important;
+}
+
+body {
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul.unstyled {
+  list-style: none;
+  padding: 0;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.remove {
+  background-color: #aaa;
+  border-radius: 50%;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  text-align: center;
+}
+
+.remove:hover {
+  background-color: #888;
+  text-decoration: none;
+}

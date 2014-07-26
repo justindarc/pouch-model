@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<title>pouch-model Pictures Local Example</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div ng-app="pouch-model-pictures-example" ng-cloak>
+    <div ng-controller="PicturesController">
+      <h1>Pictures (Local)</h1>
+
+      <hr>
+      
+      <h3>Pictures</h3>
+      <ul class="unstyled">
+        <li ng-repeat="picture in pictures">
+          <a ng-click="editPicture(picture.id)">
+            {{picture.caption}}
+          </a>
+          <a class="remove" ng-click="removePicture(picture)">&times;</a>
+        </li>
+      </ul>
+      <form ng-submit="savePicture(currentPicture)">
+        <input type="text" ng-model="currentPicture.caption" autofocus>
+        <input type="file" pm-attachment="file" ng-model="currentPicture">
+        <button type="submit">Save</button>
+        <button type="button" ng-click="newPicture()">Cancel</button>
+      </form>
+
+      <hr>
+
+      <h3>currentPicture</h3>
+      <pre>{{currentPicture | debug}}</pre>
+      <img alt="" ng-src="{{currentPictureAttachment}}">
+    </div>
+  </div>
+
+  <script src="../bower_components/pouchdb/dist/pouchdb.js"></script>
+  <script src="../bower_components/pouchdb-collate/dist/pouchdb-collate.js"></script>
+  <script src="../bower_components/tv4/tv4.js"></script>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="../dist/pouch-model.js"></script>
+  <script src="local.js"></script>
+</body>
+</html>

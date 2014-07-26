@@ -1,0 +1,39 @@
+High Priority
+=============
+* Add ability to manually "clean up" the local database
+  - Currently, "deleted" records are still persisted by setting `deleted_at`
+  - Ideally, we could automatically clean these after syncing, but for now
+    we need a way to manually clean up
+* Re-build queueing mechanism to allow a set of operations to have its own queue
+  - This will allow us to easily know when a particular `QueryResult` is synced
+  - This will allow us to `refresh()` a `QueryResult` automatically after it syncs
+  - This may provide easier sync error handling
+    - Global queue shouldn't be held up if a large sync operation fails
+  - Queue should also be network status-aware
+    - Adapters such as 'remote' shouldn't be synced when network connection is
+      unavailable
+    - Adapters such as 'remote' should automatically start processing as soon as a
+      network connection becomes available
+  - Queue needs re-architected to work for adapters other than 'local' and 'remote'
+  - An "operation" queue may be queued up in a global queue
+    - If multiple batches of operations are queued to be synced, they may need to
+      wait for existing "operation" queues to finish to prevent exceeding the
+      concurrency thresholds
+
+Medium Priority
+===============
+* Handle dirty attribute checking
+  - This should allow us to bypass `$update()` operations when the model instance
+    has not changed
+* Model instances should re-"hydrate" themselves after a create/update/delete
+  operation
+  - This allows for model instances that are bound to views to automatically
+    refresh the view with updated properties as a result of a create/update/delete
+    operation
+  - This would be useful for models with registered callbacks that handle things
+    such as computed values/triggers and also for 'remote' adapters where the
+    server may add its own computed values or perform database triggers
+
+Low Priority
+============
+* Allow for "native" sync for remote CouchDB datastores
